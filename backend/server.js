@@ -1,16 +1,18 @@
 const express = require('express');
 require('dotenv').config();
 const app = express();
+
+
 const authRouter = require('./routes/authRoutes')
 const PORT = process.env.PORT || 5001;
 const connectDb = require('./conn')
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 connectDb()
 
 app.use('/auth',authRouter)
-
 
 try {
     app.listen(PORT, () => {

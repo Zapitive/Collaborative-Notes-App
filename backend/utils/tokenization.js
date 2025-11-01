@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 function generateToken(userid,username){
     try{
         const payload = {userid:userid,username:username}
-        const token = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'30m'})
+        const token = jwt.sign(payload,process.env.ACCESS_TOKEN_SECRET,{expiresIn:'2h'})
         return token
     }
     catch(err){

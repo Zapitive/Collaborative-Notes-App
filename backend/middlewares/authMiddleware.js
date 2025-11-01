@@ -9,8 +9,10 @@ const authenticateToken = (req,res,next) => {
         if (token == null) res.status(403).json({messgae:"Please login again"})
 
         jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user)=>{
-            if (err) return
-            console.log(user)
+            if (err){
+                return res.status(403).send('token expired')
+            } 
+
             req.user = user
             next()
         })

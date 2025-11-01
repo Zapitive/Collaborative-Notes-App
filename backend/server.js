@@ -4,9 +4,9 @@ const app = express();
 
 
 const authRouter = require('./routes/authRoutes')
+const noteRouter = require('./routes/noteRoutes')
 const PORT = process.env.PORT || 5001;
 const connectDb = require('./conn')
-const {authenticateToken} = require('./middlewares/authMiddleware')
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,10 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 connectDb()
 
 app.use('/auth',authRouter)
-
-app.get('/note',authenticateToken,(req,res)=>{
-    res.send(`${req.user.userid},${req.user.username}`)
-})
+app.use('/note',noteRouter)
 
 try {
     app.listen(PORT, () => {

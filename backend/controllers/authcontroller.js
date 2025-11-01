@@ -1,3 +1,4 @@
+const { generateToken } = require('../utils/tokenization')
 const User = require('../models/userModel') 
 const {hashedPassword,checkPassword} = require('../utils/passwordHashing')
 
@@ -33,18 +34,24 @@ async function signup(req,res){
 
 async function login(req,res){
     const {username,password} = req.body
+
     if(!username || !password){
         res.status(400).json({message:"All fields are required"})
     }
+
     const user = await User.findOne({username:username})
     const dbPassword = user.password
     const match = await checkPassword(password,dbPassword)
+
     if (match){
-        res.status(200).json({message:"Login successfull"})
-    }
+        const token = generateToken(user.id,user.username)
+        res.status(200).send(token)
+        }
+
     else{
         res.status(401).json({message:"Username and Password does not match"})
     }
+
 }
 
 module.exports = {signup,login}

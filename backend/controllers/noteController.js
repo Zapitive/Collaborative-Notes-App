@@ -1,4 +1,5 @@
 const Note  = require('../models/noteModel')
+const noteRevision = require('../models/noteRevisionModel')
 
 async function addNote(req,res){
     const { title,note } = req.body
@@ -23,6 +24,36 @@ async function getAllNotes(req,res){
     res.status(200).send(allNotes)
 }
 
+async function getNote(req,res){
+    const { noteId } = req.params
+    const note = await Note.findById(noteId)
+    if(note){
+        res.status(200).send(note)
+    }
+    else{
+        res.status(404).send("Unable to retrive the note")
+    }
+}
+
+async function updateNote(req,res){
+    const { noteId } = req.params
+    const {title, note} = req.body
+    const ogNote = await Note.findById(noteId)
+    if(ogNote){
+        const versionedNote = await noteRevision.create({noteid:ogNote._id,title:ogNote.title,note:ogNote.note,noteVersion:ogNote.noteVersion})
+        ogNote.title = title
+        ogNote.note = note
+        ogNote.noteVersion +=1
+        const updatedNote = await ogNote.save()
+        if (versionedNote && updatedNote){
+            res.status(201).send(`${versionedNote} and ${updatedNote}`)
+        }
+    }
+    else{
+        res.status(404).send("Unable to retrive the note")
+    }
+}
+
 async function giveAccess(req,res){
     const docid = req.params.docid
     const accid = req.params.accid
@@ -34,5 +65,4 @@ async function giveAccess(req,res){
     }
 }
 
-
-module.exports = {addNote,getAllNotes,giveAccess}
+module.exports = {addNote,getAllNotes,giveAccess,getNote,updateNote}

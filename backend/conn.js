@@ -8,11 +8,8 @@ async function connectDb(){
         conn = await mongoose.connect(mongo_uri);
         if (conn) console.log("Connected to DB")
     } catch(e){
-        console.error(e)
+        console.log(e)
     }
 }
-
-
-
 
 module.exports = connectDb

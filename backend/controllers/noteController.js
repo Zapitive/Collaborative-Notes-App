@@ -44,6 +44,8 @@ async function updateNote(req,res){
         ogNote.title = title
         ogNote.note = note
         ogNote.noteVersion +=1
+        // only create versionedNote if note is updated 
+        // check for errors
         const updatedNote = await ogNote.save()
         if (versionedNote && updatedNote){
             res.status(201).send(`${versionedNote} and ${updatedNote}`)
@@ -51,6 +53,25 @@ async function updateNote(req,res){
     }
     else{
         res.status(404).send("Unable to retrive the note")
+    }
+}
+
+async function deleteNote(req,res){
+    const {noteId} = req.params
+    const user = req.user
+    const noteToDelete = await Note.findById(noteId)
+    if(user.userid == noteToDelete.createdBy){
+        const deletedNote = await noteToDelete.deleteOne()
+        if (deletedNote){
+            res.status(204)
+        }
+        else{
+            res.status(400).send("Unable to delete note")
+        }
+        
+    }
+    else{
+        res.status(401).send("No permission to delete the note")
     }
 }
 
@@ -65,4 +86,4 @@ async function giveAccess(req,res){
     }
 }
 
-module.exports = {addNote,getAllNotes,giveAccess,getNote,updateNote}
+module.exports = {addNote,getAllNotes,giveAccess,getNote,updateNote,deleteNote}

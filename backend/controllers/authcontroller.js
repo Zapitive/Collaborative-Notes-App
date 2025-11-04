@@ -45,7 +45,7 @@ async function login(req,res){
 
     if (match){
         const token = generateToken(user.id,user.username)
-        res.status(200).send(token)
+        res.status(200).json({token:token})
         }
 
     else{

@@ -2,7 +2,7 @@ import React from 'react'
 import SignupForm from '../components/signupForm'
 import LoginForm from '../components/LoginForm'
 
-function Signup() {
+function SignupPage() {
   return (
     <>
     <div>
@@ -13,4 +13,4 @@ function Signup() {
   )
 }
 
-export default Signup
+export default SignupPage

@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useState,useEffect } from "react"
+import { useNavigate } from "react-router-dom";
 
 function LoginForm() {
 
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-    const [responsemsg, setResponsemsg] = useState('');
+
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) =>{
         e.preventDefault()
@@ -18,15 +19,15 @@ function LoginForm() {
             }
             console.log({username,password})
 
-           const response = await axios.post(
+            const response = await axios.post(
                 '/api/auth/login',{
                     username:username,
                     password:password
                 }
             );
-            console.log(response.data)
-            setResponsemsg(response.data)
-
+            if(response.status === 200){
+                navigate('/notes');
+            }
         }
         catch (error){
             console.error(error)
@@ -38,7 +39,7 @@ function LoginForm() {
     <>
         <div  className='bg-gray-600'>
             <h2 className="">Signup</h2>
-            <p>{responsemsg}</p>
+            {/* <p>{responsemsg}</p> */}
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="username">Username</label>

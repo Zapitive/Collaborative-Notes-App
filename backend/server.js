@@ -1,20 +1,24 @@
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser')
 require('dotenv').config();
 const app = express();
 
 
-const authRouter = require('./routes/authRoutes')
-const noteRouter = require('./routes/noteRoutes')
+const authRouter = require('./routes/authRoutes');
+const noteRouter = require('./routes/noteRoutes');
 const PORT = process.env.PORT || 5001;
-const connectDb = require('./conn')
+const connectDb = require('./conn');
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(bodyParser.json());
 
-connectDb()
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/auth',authRouter)
-app.use('/note',noteRouter)
+connectDb();
+
+app.use('/api/auth',authRouter);
+app.use('/api/note',noteRouter);
 
 try {
     app.listen(PORT, () => {

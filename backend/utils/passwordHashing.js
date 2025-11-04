@@ -4,7 +4,6 @@ async function hashedPassword(password){
     try{
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password,salt)
-        console.log(salt,hashedPassword)
         return hashedPassword
     }
     catch (err){

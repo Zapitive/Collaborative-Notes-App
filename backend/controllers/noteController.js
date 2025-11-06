@@ -21,7 +21,16 @@ async function addNote(req,res){
 async function getAllNotes(req,res){
     const user = req.user
     const allNotes = await Note.find({$or:[{createdBy:user.userid},{accessTo:user.userid}]})
-    res.status(200).send(allNotes)
+    const notes = allNotes.map(
+        notedata =>{
+            return {
+                id : notedata.id,
+                title: notedata.title,
+                note: notedata.note
+            }
+        }
+    )
+    res.status(200).json(notes)
 }
 
 async function getNote(req,res){

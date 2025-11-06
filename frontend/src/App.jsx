@@ -1,18 +1,23 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import {AppContext} from './AppContext'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import NotesPage from './pages/NotesPage'
 import SignupPage from './pages/SignupPage'
+import Note from './components/Note'
 
 function App() {
-  // const [count, setCount] = useState(0)
+  const [usertoken, setUsertoken] = useState('')
 
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<SignupPage />} />
-          <Route path='/notes' element={<NotesPage />} />
-        </Routes>
+        <AppContext.Provider value={{usertoken:usertoken,setUsertoken:setUsertoken}}>
+          <Routes>
+            <Route path='/' element={<SignupPage />} />
+            <Route path='/notes' element={<NotesPage />} />
+            <Route path='/note' element={<Note/>} />
+          </Routes>
+        </AppContext.Provider>
       </BrowserRouter>
     </>
   )

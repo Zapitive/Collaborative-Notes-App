@@ -1,14 +1,14 @@
 import axios from "axios";
 import { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom";
-import {AppContext} from '../AppContext'
+import { useCookies } from "react-cookie";
 
 function LoginForm() {
 
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
 
-    const { usertoken, setUsertoken } = useContext(AppContext)
+    const [cookie,setCookie,removeCookie] = useCookies(['myCookie'])
 
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ function LoginForm() {
                 }
             );
             if(response.status === 200){
-                setUsertoken(response.data.token)
+                setCookie('myCookie',`${response.data.token}`,{path:'/'})
                 navigate('/notes');
             }
         }
@@ -41,39 +41,33 @@ function LoginForm() {
 
   return (
     <>
-        <h2 className="text-center text-2xl  mt-5">Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="flex flex-col items-center space-y-2 mt-5">
-                <div >
-                    <label htmlFor="username" className="mr-2">Username</label>
-                    <input
-                    className="border-b-2 focus:outline-none"
-                    type="text"
-                    id="username"
-                    value={username}
-                    required
-                    onChange={(e)=> setUsername(e.target.value)}
-                    />
-                    
+        <form onSubmit={handleSubmit}>                
+                <div className="flex w-11/12 h-9/10 justify-self-center justify-center items-center rounded-3xl border-2 pt-2 pb-4">
+                    <div className="w-9/20 h-9/10 mr-2">
+                        <p className="text-end text-lg font-semibold my-1">Email or Username</p>
+                        <p className="text-end text-lg font-semibold my-1">Password</p>
+                    </div>
+                    <div className="w-9/20 h-9/10">
+                        <input
+                        className="border-b-2 focus:outline-none h-6 text-lg font-semibold w-3/5 my-1"
+                        type="text"
+                        id="username"
+                        value={username}
+                        required
+                        onChange={(e)=> setUsername(e.target.value)}
+                        />
+                        <input
+                        className="border-b-2 focus:outline-none h-6 text-lg font-semibold w-3/5 my-1"
+                        type="password"
+                        id="password"
+                        value={password}
+                        required
+                        onChange={(e)=> setPassword(e.target.value)}
+                        />
+                    </div>
                 </div>
-                <div >
-                    
-                    
-                    <label htmlFor="password" className="mr-3">Password</label>
-                    <input
-                    className="border-b-2 focus:outline-none"
-                    type="password"
-                    id="password"
-                    value={password}
-                    required
-                    onChange={(e)=> setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className="text-2xl border-2 p-3 mt-5 rounded-4xl cursor-pointer">Login</button>
-                </div>
-                
+                <button type="submit" className="block mx-auto font-bold border-2 p-2 px-3 mt-5 rounded-3xl cursor-pointer hover:shadow-xl hover:bg-violet-200">Login</button>
             </form>
-        
     </>
   )
 }

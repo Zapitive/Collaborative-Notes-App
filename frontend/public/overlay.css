@@ -9,15 +9,18 @@
   display: flex; /* Use flexbox to center the content */
   justify-content: center;
   align-items: center;
+  cursor: default;
   z-index: 1000; /* Ensure it's on top of other content */
 }
 
 .overlay__container {
+  width: 90%;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative; /* For positioning the close button */
+  cursor: default;
 }
 
 .overlay__close {

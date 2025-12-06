@@ -21,6 +21,8 @@ const noteRevisionSchema = new Schema({
     versionKey : false
 })
 
+//make it order as per noteid and timestamps
+
 const noteRevision = model('noteRevision',noteRevisionSchema)
 
 module.exports = noteRevision

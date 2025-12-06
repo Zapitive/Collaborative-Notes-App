@@ -37,49 +37,41 @@ function SignupForm() {
 
   return (
     <>
-            <h2 className="text-center text-2xl  mt-5">Signup</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="flex flex-col items-center space-y-2 mt-5">
-                <div >
-                    <label htmlFor="username" className="mr-2">Username</label>
-                    <input
-                    className="border-b-2 focus:outline-none"
-                    type="text"
-                    id="username"
-                    value={username}
-                    required
-                    onChange={(e)=> setUsername(e.target.value)}
-                    />
-                    
+            <form onSubmit={handleSubmit}>                
+                <div className="flex w-11/12 h-9/10 justify-self-center justify-center items-center rounded-3xl border-2 pt-2 pb-4">
+                    <div className="w-9/20 h-9/10 mr-2">
+                        <p className="text-end text-lg font-semibold my-1">Username</p>
+                        <p className="text-end text-lg font-semibold my-1">Email</p>
+                        <p className="text-end text-lg font-semibold my-1">Password</p>
+                    </div>
+                    <div className="w-9/20 h-9/10">
+                        <input
+                        className="border-b-2 focus:outline-none h-6 text-lg font-semibold w-3/5 my-1"
+                        type="text"
+                        id="username"
+                        value={username}
+                        required
+                        onChange={(e)=> setUsername(e.target.value)}
+                        />
+                        <input
+                        className="border-b-2 focus:outline-none h-6 text-lg font-semibold w-3/5 my-1 "
+                        type="email"
+                        id="email"
+                        value={email}
+                        required
+                        onChange={(e)=> setEmail(e.target.value)}
+                        />
+                        <input
+                        className="border-b-2 focus:outline-none h-6 text-lg font-semibold w-3/5 my-1"
+                        type="password"
+                        id="password"
+                        value={password}
+                        required
+                        onChange={(e)=> setPassword(e.target.value)}
+                        />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="email" className="mr-10">Email</label>
-                    <input
-                    className="border-b-2 focus:outline-none"
-                    type="email"
-                    id="email"
-                    value={email}
-                    required
-                    onChange={(e)=> setEmail(e.target.value)}
-                    />
-                    
-                </div>
-                <div >
-                    
-                    
-                    <label htmlFor="password" className="mr-3">Password</label>
-                    <input
-                    className="border-b-2 focus:outline-none"
-                    type="password"
-                    id="password"
-                    value={password}
-                    required
-                    onChange={(e)=> setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit" className="text-2xl border-2 p-3 mt-5 rounded-4xl cursor-pointer">Sign up</button>
-                </div>
-                
+                <button type="submit" className="block mx-auto font-bold border-2 p-2 mt-5 rounded-3xl cursor-pointer hover:shadow-xl hover:bg-violet-200">Sign up</button>
             </form>
         
     </>

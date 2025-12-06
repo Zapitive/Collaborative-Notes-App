@@ -9,6 +9,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-*{
-  @apply text-gray-200;
+/* Hide scrollbar for Chrome, Safari and Edge */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
+
+/* Hide scrollbar for Firefox */
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar for IE, Edge (legacy) */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+}
+
+#root{
+  height: 100vh;
+  width: 100%;
+}
+

@@ -44,7 +44,7 @@ async function login(req,res){
     const match = await checkPassword(password,dbPassword)
 
     if (match){
-        const token = generateToken(user.id,user.username)
+        const token = generateToken(user.id)
         res.status(200).json({token:token})
         }
 

@@ -7,6 +7,7 @@ const app = express();
 
 const authRouter = require('./routes/authRoutes');
 const noteRouter = require('./routes/noteRoutes');
+const shareRotuer = require('./routes/shareRoutes');
 const PORT = process.env.PORT || 5001;
 const connectDb = require('./conn');
 
@@ -19,6 +20,7 @@ connectDb();
 
 app.use('/api/auth',authRouter);
 app.use('/api/note',noteRouter);
+app.use('/api/share',shareRotuer);
 
 try {
     app.listen(PORT, () => {
